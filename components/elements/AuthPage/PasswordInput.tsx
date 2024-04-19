@@ -1,5 +1,5 @@
 import {IAuthPageInputProps} from "@/types/auth";
-import styles from "@/styles/auth/index.module.scss";
+import styles from "@/styles/pages/auth/index.module.scss";
 
 const PasswordInput = ({ register, errors }: IAuthPageInputProps) => {
   const minLength = 8;

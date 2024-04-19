@@ -1,4 +1,4 @@
-import styles from "@/styles/auth/index.module.scss";
+import styles from "@/styles/pages/auth/index.module.scss";
 import {IAuthPageInputProps} from "@/types/auth";
 
 const NameInput = ({ register, errors }: IAuthPageInputProps) => {

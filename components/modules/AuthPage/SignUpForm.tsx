@@ -1,11 +1,17 @@
-import styles from "@/styles/auth/index.module.scss";
 import NameInput from "@/components/elements/AuthPage/NameInput";
 import {useForm} from "react-hook-form";
 import {IInputs} from "@/types/auth";
 import EmailInput from "@/components/elements/AuthPage/EmailInput";
 import PasswordInput from "@/components/elements/AuthPage/PasswordInput";
+import {signUpFx} from "@/app/api/auth";
+import {showAuthError} from "@/utils/errors";
+import {useState} from "react";
+import styles from "@/styles/pages/auth/index.module.scss";
+import spinnerStyles from "@/styles/common/spinner/index.module.scss";
 
 const SignUpForm = ({ switchForm }: { switchForm: () => void }) => {
+  const [spinner, setSpinner] = useState<boolean>(false);
+
   const {
     register,
     formState: { errors },
@@ -13,12 +19,30 @@ const SignUpForm = ({ switchForm }: { switchForm: () => void }) => {
     resetField,
   } = useForm<IInputs>();
 
-  const onSubmit = (data: IInputs) => {
-    console.log('data -', data);
-    resetField('name');
-    resetField('email');
-    resetField('password');
-    switchForm();
+  const onSubmit = async (data: IInputs) => {
+    try {
+      setSpinner(true);
+
+      const userData = await signUpFx({
+        url: '/users/signup',
+        username: data.name,
+        email: data.email,
+        password: data.password,
+      });
+
+      if (!userData) {
+        return;
+      }
+
+      resetField('name');
+      resetField('email');
+      resetField('password');
+      switchForm();
+    } catch (error) {
+      showAuthError(error);
+    } finally {
+      setSpinner(false);
+    }
   }
 
   return (
@@ -30,7 +54,7 @@ const SignUpForm = ({ switchForm }: { switchForm: () => void }) => {
       <EmailInput register={register} errors={errors} />
       <PasswordInput register={register} errors={errors} />
       <button className={`${styles.form__button} ${styles.button} ${styles.submit}`}>
-        SIGN UP
+        {spinner ? <div className={spinnerStyles.spinner}/> : 'SIGN UP'}
       </button>
     </form>
   );

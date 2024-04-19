@@ -19,6 +19,7 @@
 # misc
 .DS_Store
 *.pem
+workspace.xml
 
 # debug
 npm-debug.log*
