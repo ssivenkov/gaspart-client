@@ -4,7 +4,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import {$mode} from "@/context/mode";
 import {withClickOutside} from "@/utils/WIthClickOutside";
 import {IWrappedComponentProps} from "@/types/common";
-import ShoppingCartSVG from "@/components/elements/ShoppingCartSVG/ShoppingCartSVG";
+import ShoppingCartSVG from "@/components/elements/svg/ShoppingCartSVG/ShoppingCartSVG";
 import {$shoppingCart} from "@/context/shopping-cart";
 import Link from "next/link";
 import styles from "@/styles/common/cartPopup/index.module.scss";

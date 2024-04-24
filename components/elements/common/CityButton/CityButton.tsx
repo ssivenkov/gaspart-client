@@ -1,5 +1,5 @@
 import React from 'react';
-import LocationSVG from "@/components/elements/LocationSVG/LocationSVG";
+import LocationSVG from "@/components/elements/svg/LocationSVG/LocationSVG";
 import styles from '@/styles/common/cityButton/index.module.scss';
 import {useStore} from "effector-react";
 import {$mode} from "@/context/mode";
