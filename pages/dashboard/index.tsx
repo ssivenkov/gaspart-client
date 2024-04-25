@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Layout from "@/components/layout/Layout";
+import DashboardPage from "@/components/templates/DashboardPage/DashboardPage";
 
 function Dashboard() {
   return (
@@ -14,7 +15,7 @@ function Dashboard() {
       </Head>
       <Layout>
         <main>
-          <h1>Dashboard</h1>
+          <DashboardPage />
           <div className="overlay" />
         </main>
       </Layout>
