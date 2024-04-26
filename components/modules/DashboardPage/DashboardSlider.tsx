@@ -6,10 +6,10 @@ import {$mode} from "@/context/mode";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {IDashboardSlider} from "@/types/dashboard";
-import styles from '@/styles/pages/dashboard/index.module.scss';
-import skeletonStyles from '@/styles/common/skeleton/index.module.scss';
 import Link from "next/link";
 import {formatPrice} from "@/utils/common";
+import styles from '@/styles/pages/dashboard/index.module.scss';
+import skeletonStyles from '@/styles/common/skeleton/index.module.scss';
 
 const DashboardSlider = ({items, spinner, goToPartPage}: IDashboardSlider) => {
   const isMedia560 = useMediaQuery(560);

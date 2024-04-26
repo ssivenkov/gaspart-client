@@ -3,17 +3,23 @@ import {toast} from "react-toastify";
 import BrandsSlider from "@/components/modules/DashboardPage/BrandsSlider";
 import {IBoilerParts} from "@/types/boilerParts";
 import {getBestsellersOrNewPartsFx} from "@/app/api/boilerParts";
-import styles from '@/styles/pages/dashboard/index.module.scss';
 import {useStore} from "effector-react";
 import {$mode} from "@/context/mode";
+import {$shoppingCart} from "@/context/shopping-cart";
 import DashboardSlider from "@/components/modules/DashboardPage/DashboardSlider";
+import styles from '@/styles/pages/dashboard/index.module.scss';
+import {AnimatePresence, motion} from "framer-motion";
+import CartAlert from "@/components/modules/DashboardPage/CartAlert";
 
 const DashboardPage = () => {
+  const mode = useStore($mode);
+  const shoppingCart = useStore($shoppingCart);
+
   const [bestsellers, setBestsellers] = useState<IBoilerParts>({} as IBoilerParts);
   const [newParts, setNewParts] = useState<IBoilerParts>({} as IBoilerParts);
   const [spinner, setSpinner] = useState<boolean>(false);
+  const [showAlert, setShowAlert] = useState<boolean>(!!shoppingCart.length);
 
-  const mode = useStore($mode);
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : '';
 
   const loadBoilerParts = async () => {
@@ -31,6 +37,10 @@ const DashboardPage = () => {
     }
   }
 
+  const closeAlert = () => {
+    setShowAlert(false);
+  }
+
   useEffect(() => {
     loadBoilerParts();
   }, []);
@@ -38,9 +48,22 @@ const DashboardPage = () => {
   return (
     <section className={styles.dashboard}>
       <div className={`container ${styles.dashboard__container}`}>
+        <AnimatePresence>
+          {showAlert &&
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className={`${styles.dashboard__alert} ${darkModeClass}`}
+            >
+              <CartAlert count={shoppingCart.length} closeAlert={closeAlert} />
+            </motion.div>
+          }
+        </AnimatePresence>
         <div className={styles.dashboard__brands}>
           <BrandsSlider/>
         </div>
+
         <h2 className={`${styles.dashboard__title} ${darkModeClass}`}>
           Детали для газовых котлов
         </h2>
