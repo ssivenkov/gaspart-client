@@ -6,3 +6,9 @@ export const getBestsellersOrNewPartsFx = createEffect(async (url: string) => {
 
   return data;
 });
+
+export const getBoilerPartsFx = createEffect(async (url: string) => {
+  const { data } = await instance.get(url);
+
+  return data;
+});

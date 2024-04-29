@@ -49,20 +49,20 @@ const DashboardSlider = ({items, spinner, goToPartPage}: IDashboardSlider) => {
   return (
     <Slider {...settings} className={styles.dashboard__slider}>
       {spinner ?
-        [...Array(8)].map((item) => (
+        [...Array(8)].map((_, index) => (
           <div
             className={`${skeletonStyles.skeleton__item} ${mode === 'dark' ? `${skeletonStyles.dark_mode}` : ''}`}
-            key={Date.now()}
+            key={index}
             style={{width: `${width}px`}}
           >
             <div className={skeletonStyles.skeleton__item__light}/>
           </div>
         ))
         : items.length ? (
-          items.map((item) => (
+          items.map((item, index) => (
             <div
               className={`${styles.dashboard__slide} ${darkModeClass}`}
-              key={item.id}
+              key={index}
               style={width}
             >
               <img src={JSON.parse(item.images)[0]} alt={item.name}/>
